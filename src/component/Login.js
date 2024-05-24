@@ -13,7 +13,7 @@ import {
 }
 from 'mdb-react-ui-kit';
 
-function App() {
+const App = () => {
 
   const [justifyActive, setJustifyActive] = useState('tab1');;
 
@@ -24,6 +24,54 @@ function App() {
 
     setJustifyActive(value);
   };
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    userName:"",
+    email: "",
+    password:""
+  });
+
+  const [formData1, setFormData1] = useState({
+    userName:"",
+    password:""
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [id]: value
+    }));
+  };
+
+  const handleChange1 = (e) => {
+    const { id, value } = e.target;
+    setFormData1((prevState) => ({
+      ...prevState,
+      [id]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Assuming formData is already defined and populated
+    console.log(formData);
+
+    // // Redirect to the /Player endpoint
+    // navigate("/Player", { state: { formData } });
+};
+
+const handleSubmit1 = (e) => {
+  e.preventDefault();
+
+  // Assuming formData is already defined and populated
+  console.log(formData1);
+
+  // // Redirect to the /Player endpoint
+  // navigate("/Player", { state: { formData } });
+};
 
   return (
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
@@ -44,6 +92,8 @@ function App() {
       <MDBTabsContent>
 
         <MDBTabsPane open={justifyActive === 'tab1'}>
+
+          <form onSubmit={handleSubmit1}>
 
           <div className="text-center mb-3">
             <p>Sign in with:</p>
@@ -69,20 +119,22 @@ function App() {
             <p className="text-center mt-3">or:</p>
           </div>
 
-          <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email'/>
-          <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'/>
+          <MDBInput wrapperClass='mb-4' label='Username' id='userName' type='text' value={formData1.userName} onChange={handleChange1}/>
+          <MDBInput wrapperClass='mb-4' label='Password' id='password' type='password' value={formData1.password} onChange={handleChange1}/>
 
           <div className="d-flex justify-content-between mx-4 mb-4">
             <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
             <a href="!#">Forgot password?</a>
           </div>
 
-          <MDBBtn className="mb-4 w-100">Sign in</MDBBtn>
+          <MDBBtn className="mb-4 w-100" type='submit'>Sign in</MDBBtn>
           <p className="text-center">Not a member? <a href="#!">Register</a></p>
+          </form>
 
         </MDBTabsPane>
 
         <MDBTabsPane open={justifyActive === 'tab2'}>
+          <form onSubmit={handleSubmit}>
 
           <div className="text-center mb-3">
             <p>Sign un with:</p>
@@ -108,16 +160,17 @@ function App() {
             <p className="text-center mt-3">or:</p>
           </div>
 
-          <MDBInput wrapperClass='mb-4' label='Name' id='form1' type='text'/>
-          <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text'/>
-          <MDBInput wrapperClass='mb-4' label='Email' id='form1' type='email'/>
-          <MDBInput wrapperClass='mb-4' label='Password' id='form1' type='password'/>
+          <MDBInput wrapperClass='mb-4' className='form-control' label='Full Name' id='fullName' type='text' value={formData.fullName} onChange={handleChange}/>
+          <MDBInput wrapperClass='mb-4' label='Username' id='userName' type='text' value={formData.userName} onChange={handleChange}/>
+          <MDBInput wrapperClass='mb-4' label='Email' id='email' type='email' value={formData.email} onChange={handleChange}/>
+          <MDBInput wrapperClass='mb-4' label='Password' id='password' type='password' value={formData.password} onChange={handleChange}/>
 
           <div className='d-flex justify-content-center mb-4'>
             <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I have read and agree to the terms' />
           </div>
 
-          <MDBBtn className="mb-4 w-100">Sign up</MDBBtn>
+          <MDBBtn className="mb-4 w-100" type='submit'>Sign up</MDBBtn>
+          </form>
 
         </MDBTabsPane>
 
